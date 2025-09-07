@@ -32,7 +32,7 @@ interface QueueStatusResponse {
   message: string;
 }
 
-@Controller('wallet')
+@Controller('payment')
 export class PaymentController {
   private readonly logger = new Logger(PaymentController.name);
 
