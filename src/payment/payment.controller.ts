@@ -12,7 +12,7 @@ import { PaymentService } from './payment.service';
 import { UsersService } from '../users/users.service';
 import { TransactionService } from '../transactions/transactions.service';
 import { QueueService } from '../queues/queue.service';
-import { createId } from '@paralleldrive/cuid2';
+import {v4 as uuidv4} from 'uuid';
 import { ApiConfigService } from 'src/config/env.validation';
 import { ProductsService } from 'src/products/products.service';
 import { EventEmitter2, OnEvent } from '@nestjs/event-emitter';
@@ -169,7 +169,7 @@ export class PaymentController {
         );
       }
       const purchaseAmount = product.price * quantity;
-      const newTransactionRef = `${this.apiConfig.squadMID}_${createId()}_QW_${Date.now()}`;
+      const newTransactionRef = `${this.apiConfig.squadMID}_${uuidv4()}_QW_${Date.now()}`;
 
       await this.transactionService.createTransactionRecord({
         amount: purchaseAmount,
@@ -258,7 +258,7 @@ export class PaymentController {
       }
 
       const purchaseAmount = product.price * quantity;
-      const newTransactionRef = `${this.apiConfig.squadMID}_${createId()}_FW_${Date.now()}`;
+      const newTransactionRef = `${this.apiConfig.squadMID}_${uuidv4()}_FW_${Date.now()}`;
 
       const initiateCheckout = await this.paymentService.initiateCardPayment(
         String(purchaseAmount),
